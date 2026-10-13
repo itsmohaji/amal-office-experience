@@ -9,9 +9,9 @@ const topics={strategy:['ADVISORY','Strategy & Advisory','A considered perspecti
 function openTopic(k){const t=topics[k];label.textContent=t[0];title.textContent=t[1];body.textContent=t[2];panel.classList.add('open');pan=k==='technology'?-2:k==='growth'?3:k==='amal'?1:0;zoom=1.19;apply();document.getElementById('welcome').style.opacity='.15'}
 function apply(){app.style.setProperty('--pan',pan+'%');app.style.setProperty('--zoom',zoom)}
 document.querySelectorAll('[data-topic]').forEach(b=>b.addEventListener('click',()=>openTopic(b.dataset.topic)));
-document.getElementById('amal').onclick=()=>openTopic('amal');document.getElementById('start').onclick=()=>openTopic('strategy');
+document.getElementById('amal').onclick=()=>openTopic('amal');document.getElementById('start').onclick=()=>{document.getElementById('welcome').style.display='none';document.querySelector('.hint').textContent='Explore • Swipe to look around • Tap a destination';panel.classList.remove('open');zoom=1.30;pan=-2;apply();document.getElementById('amal').style.transform='scale(1.18)';document.getElementById('amal').textContent='TALK TO AMAL';document.getElementById('start').disabled=true;};
 document.getElementById('close').onclick=()=>panel.classList.remove('open');
 document.getElementById('light').onclick=e=>{app.classList.toggle('night');e.target.textContent=app.classList.contains('night')?'☀ Dusk':'☾ Night'};
-document.getElementById('reset').onclick=()=>{pan=0;zoom=1.12;apply();panel.classList.remove('open');document.getElementById('welcome').style.opacity='1'};
+document.getElementById('reset').onclick=()=>{pan=0;zoom=1.12;apply();panel.classList.remove('open');document.getElementById('welcome').style.display='block';document.getElementById('welcome').style.opacity='1';document.getElementById('start').disabled=false;document.getElementById('amal').style.transform='scale(1)'};
 scene.addEventListener('pointerdown',e=>{down={x:e.clientX,pan};scene.setPointerCapture(e.pointerId)});scene.addEventListener('pointermove',e=>{if(!down)return;pan=Math.max(-7,Math.min(7,down.pan+(e.clientX-down.x)/25));apply()});scene.addEventListener('pointerup',()=>down=null);scene.addEventListener('pointercancel',()=>down=null);
 </script></body></html>
